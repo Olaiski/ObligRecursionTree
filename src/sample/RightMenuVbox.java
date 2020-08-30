@@ -13,20 +13,28 @@ import javafx.scene.paint.Color;
 
 public class RightMenuVbox extends VBox {
 
-    private Slider angleSlider = new Slider(30, 150, 90);
-    private TextField lengthTf = new TextField();
-    private TextField orderTf = new TextField();
-    private Button btnOk = new Button("Ok");
+    private final Slider angleSlider = new Slider(-120, -60, -90);
+    private final TextField lengthTf = new TextField();
+    private final TextField orderTf = new TextField();
+    private final Button btnOk = new Button("Ok");
+    private final TextField sizeTf = new TextField();
+
+    private static final int TF_WIDTH = 70;
 
     public RightMenuVbox() {
 
         angleSlider.setMajorTickUnit(10);
         angleSlider.setShowTickMarks(true);
-        angleSlider.setShowTickLabels(true);
+//        angleSlider.setShowTickLabels(true);
         angleSlider.setSnapToTicks(true);
 
-        lengthTf.setText("0");
+        lengthTf.setText("100");
+        lengthTf.setMaxWidth(TF_WIDTH);
         orderTf.setText("0");
+        orderTf.setMaxWidth(TF_WIDTH);
+        sizeTf.setText("0");
+        sizeTf.setMaxWidth(TF_WIDTH);
+
 
         this.setSpacing(5);
         this.setPadding(new Insets(20));
@@ -37,24 +45,43 @@ public class RightMenuVbox extends VBox {
                 new Label("Grad:"), angleSlider,
                 new Label("Lengde (stamme): "), lengthTf,
                 new Label("Nivå: "), orderTf,
+                new Label("Størrelse:"), sizeTf,
                 btnOk
 
         );
     }
 
-    public Slider getAngleSlider() {
-        return angleSlider;
-    }
-
-    public TextField getLengthTf() {
-        return lengthTf;
+    public Button getBtnOk() {
+        return btnOk;
     }
 
     public TextField getOrderTf() {
         return orderTf;
     }
 
-    public Button getBtnOk() {
-        return btnOk;
+    public int getOrder() {
+        if (!orderTf.getText().trim().isEmpty()) {
+            return Integer.parseInt(orderTf.getText());
+        }
+        return 0;
     }
+
+    public double getLength() {
+        if (!lengthTf.getText().trim().isEmpty()) {
+            return Double.parseDouble(lengthTf.getText());
+        }
+        return 0.0;
+    }
+
+    public double getSize(){
+        if (!sizeTf.getText().trim().isEmpty()) {
+            return Double.parseDouble(sizeTf.getText());
+        }
+        return 0.0;
+    }
+
+    public double getAngle() {
+        return angleSlider.getValue();
+    }
+
 }
