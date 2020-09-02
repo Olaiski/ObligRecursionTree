@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
 
 public class RightMenuVbox extends VBox {
 
-    private final Slider angleSlider = new Slider(-120, -60, -90);
+    private final Slider randomSlider = new Slider(0,4,0);
     private final TextField lengthTf = new TextField();
     private final TextField orderTf = new TextField();
     private final Button btnOk = new Button("Ok");
@@ -23,10 +23,10 @@ public class RightMenuVbox extends VBox {
 
     public RightMenuVbox() {
 
-        angleSlider.setMajorTickUnit(10);
-        angleSlider.setShowTickMarks(true);
-//        angleSlider.setShowTickLabels(true);
-        angleSlider.setSnapToTicks(true);
+        randomSlider.setMajorTickUnit(1);
+        randomSlider.setShowTickMarks(true);
+        randomSlider.setShowTickLabels(true);
+        randomSlider.setSnapToTicks(true);
 
         lengthTf.setText("100");
         lengthTf.setMaxWidth(TF_WIDTH);
@@ -42,7 +42,7 @@ public class RightMenuVbox extends VBox {
 
 
         getChildren().addAll(new Label(""),
-                new Label("Grad:"), angleSlider,
+                new Label("Grad random:"), randomSlider,
                 new Label("Lengde (stamme): "), lengthTf,
                 new Label("Nivå: "), orderTf,
                 new Label("Størrelse:"), sizeTf,
@@ -80,8 +80,8 @@ public class RightMenuVbox extends VBox {
         return 0.0;
     }
 
-    public double getAngle() {
-        return angleSlider.getValue();
+    public double getRandomSliderValue() {
+        return randomSlider.getValue();
     }
 
 }

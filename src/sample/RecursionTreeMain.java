@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 public class RecursionTreeMain extends Application {
 
 
-
     @Override
     public void start(Stage primaryStage) throws Exception{
 
@@ -21,7 +20,7 @@ public class RecursionTreeMain extends Application {
 
 
         rBox.getBtnOk().setOnAction(e ->
-                pane.setTree(rBox.getOrder(), rBox.getLength(), rBox.getAngle())
+                pane.setTree(rBox.getOrder(), rBox.getLength())
         );
 
 
@@ -42,9 +41,8 @@ public class RecursionTreeMain extends Application {
 
     static class RecursiveTreePane extends Pane {
 
-        private double angle = 0;
-        private int order = 0;
-        private double len = 100;
+        private int order;
+        private double len;
 
 
         public void setTree(int order) {
@@ -58,12 +56,6 @@ public class RecursionTreeMain extends Application {
             paint();
         }
 
-        public void setTree(int order, double len, double degree) {
-            this.order = order;
-            this.len = len;
-            this.angle = degree;
-            paint();
-        }
 
         public RecursiveTreePane() {
             this.setBackground(new Background(new BackgroundFill(Color.GRAY, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -71,47 +63,57 @@ public class RecursionTreeMain extends Application {
 
 
         protected void paint() {
-//            Point2D p1 = new Point2D(getWidth() / 2, getHeight() - 10);
-            Point2D p = new Point2D(getWidth() / 2, getHeight() - 10 - len);
+            Point2D p = new Point2D(getWidth() / 2, getHeight());
 
             this.getChildren().clear();
-
-//            displayTree(order, len, p1, p2);
-            System.out.println(angle);
-            displayTree(order, p.getX(), p.getY(), angle);
-
+            displayTree(order, p, -90, getHeight() / 4);
         }
 
-        private void displayTree(int order,  double x1, double y1, double angle) {
 
-            Point2D p1 = new Point2D(getWidth() / 2, getHeight() - 10);
-            Point2D p2 = new Point2D(getWidth() / 2, getHeight() - 10 - len);
+        /**
+         *
+         * @param n number of recursive "iterations"
+         * @param origin the x and y on where to start drawing
+         * @param rotation degrees
+         * @param length how long the line should be (pixels)
+         */
+        private void displayTree(int n, Point2D origin, double rotation, double length) {
+
+            Point2D endPoint = endPoint(origin, rotation, length);
 
 
-            if (order == 0) {
-                Line line = new Line(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+            if (n == 0) {
+                Line line = new Line(origin.getX(), origin.getY(), endPoint.getX(), endPoint.getY());
                 line.setStroke(Color.WHITE);
                 getChildren().add(line);
-
-            } else  {
-
-                double x2 = x1 + (Math.cos(Math.toRadians(angle)) * order * 10.0);
-                double y2 = y1 + (Math.sin(Math.toRadians(angle)) * order * 10.0);
-
-                Line line = new Line(x1, y1, x2, y2);
-                line.setStroke(Color.WHITE);
-                getChildren().add(line);
-                displayTree(order - 1, x2, y2, angle - 30);
-                displayTree(order - 1, x2, y2, angle + 30);
             }
+            else if (length > 2) {
 
+                Line line = new Line(origin.getX(), origin.getY(), endPoint.getX(), endPoint.getY());
+                line.setStroke(Color.WHITE);
+                getChildren().add(line);
 
+                displayTree(n - 1, endPoint, rotation - 30, length * 0.67f);
+                displayTree(n - 1, endPoint, rotation + 30, length * 0.67f);
 
+            }
+            
         }
 
+        private Point2D endPoint(Point2D origin, double rotation, double len) {
+            double x = origin.getX();
+            double y = origin.getY();
 
+            double radians = Math.PI / 180.0 * rotation;  // Math.toRadians()
 
+            x += (len * Math.cos(radians));
+            y += (len * Math.sin(radians));
+
+            return new Point2D(x, y);
+        }
     }
+
+
 
 
     public static void main(String[] args) {
