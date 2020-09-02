@@ -13,12 +13,11 @@ import java.util.Random;
 
 public class RecursionTreeMain extends Application {
 
-    private final RightMenuVbox rBox = new RightMenuVbox();
-
     @Override
     public void start(Stage primaryStage) throws Exception{
 
         RecursiveTreePane pane = new RecursiveTreePane();
+        RightMenuVbox rBox = new RightMenuVbox();
 
         rBox.getBtnOk().setOnAction(e -> {
             pane.disco = rBox.getDiscoCb().isSelected();
