@@ -11,6 +11,13 @@ import javafx.stage.Stage;
 
 import java.util.Random;
 
+/**
+ * Obligatorisk oppgave - Tree (rekursjon)
+ *
+ *  Anders Olai Pedersen - 225280
+ *  Tommy Otervik - 225245
+ */
+
 public class RecursionTreeMain extends Application {
 
     @Override

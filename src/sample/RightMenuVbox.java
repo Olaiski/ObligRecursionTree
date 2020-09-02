@@ -8,6 +8,12 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+/**
+ * Obligatorisk oppgave - Tree (rekursjon)
+ *
+ *  Anders Olai Pedersen - 225280
+ *  Tommy Otervik - 225245
+ */
 
 public class RightMenuVbox extends VBox {
 
